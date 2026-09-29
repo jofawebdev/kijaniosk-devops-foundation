@@ -341,3 +341,27 @@ By using feature branches, meaningful commits, Pull Requests, and documented arc
 
 The most important outcome is not the complexity of the infrastructure but the ability to make engineering decisions deliberately, document those decisions clearly, obtain feedback, and use what is learned to improve future work.
 
+## 12. Project Reflection
+
+### 12.1 Where Was I Most Tempted to Take Shortcuts?
+
+The main shortcuts I was tempted to take were combining the documentation into fewer files, skipping validation after making changes, and creating the architecture diagram without explicitly documenting the routing and security decisions. These approaches would have reduced the immediate amount of work, but they would also have reduced traceability and made the project less representative of a professional DevOps workflow.
+
+I therefore followed a more disciplined process by separating the architecture topics into focused documents, using Git branches and meaningful commits, validating the repository before progressing, and documenting the reasoning behind the major cloud, reliability, networking, and security decisions.
+
+### 12.2 Which Architecture Decision Required the Most Reasoning?
+
+The architecture decision that required the most reasoning was determining how the application should use cloud services while balancing developer productivity, operational responsibility, scalability, security, and future flexibility.
+
+The service-model analysis considered Infrastructure as a Service (IaaS), Platform as a Service (PaaS), and Software as a Service (SaaS). The project selected PaaS as the initial hosting model because it can reduce infrastructure-management responsibilities while allowing the development team to concentrate on application delivery. However, IaaS remains a valid alternative if future requirements introduce greater infrastructure-level control.
+
+The region and availability-zone decision also required careful consideration because reliability should be designed without introducing unnecessary complexity. The initial architecture therefore uses multiple availability zones within a primary region, while leaving multi-region deployment as a future consideration when the application's availability and disaster-recovery requirements justify the additional complexity.
+
+### 12.3 If the Platform Grows Significantly, What Would I Improve First?
+
+If KijaniKiosk grows significantly, I would first strengthen the platform's observability and reliability foundations. This would include centralized logging, application and infrastructure metrics, actionable monitoring alerts, health checks, automated recovery mechanisms, and clearly defined recovery objectives.
+
+After establishing strong observability, the architecture could evolve through additional capacity management, automated scaling, stronger deployment automation, improved disaster-recovery capabilities, and potentially multi-region architecture where justified by documented business and availability requirements.
+
+This approach follows the DevOps principle of making system behavior measurable before attempting to optimize or scale it. Better visibility would provide evidence for future architectural decisions rather than relying on assumptions.
+
