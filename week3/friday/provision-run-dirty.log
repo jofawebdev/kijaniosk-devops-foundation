@@ -1,81 +1,84 @@
-[2026-09-30T22:34:08+0300] INFO: Starting kijanikiosk-provision.sh version 1.0.0.
-[2026-09-30T22:34:08+0300] INFO: ============================================================
-[2026-09-30T22:34:08+0300] INFO: PHASE 1: Pre-Provisioning Audit and Prerequisites
-[2026-09-30T22:34:08+0300] INFO: ============================================================
-[2026-09-30T22:34:08+0300] INFO: System information:
-[2026-09-30T22:34:08+0300] INFO:   Hostname: webdev
-[2026-09-30T22:34:08+0300] INFO:   Kernel: 7.0.0-34-generic
-[2026-09-30T22:34:08+0300] INFO:   User: root
-[2026-09-30T22:34:08+0300] INFO:   Script version: 1.0.0
-[2026-09-30T22:34:08+0300] INFO: Auditing known dirty-state conditions.
-[2026-09-30T22:34:08+0300] INFO: Dirty-state detected: service account already exists: kk-api
-[2026-09-30T22:34:08+0300] INFO: Dirty-state detected: configuration directory already exists: /opt/kijanikiosk/config
-[2026-09-30T22:34:08+0300] INFO: Dirty-state detected: shared log directory already exists: /opt/kijanikiosk/shared/logs
-[2026-09-30T22:34:08+0300] INFO: Dirty-state detected: UFW is already active.
-[2026-09-30T22:34:08+0300] INFO: Clean-state condition: curl is not held by APT.
-[2026-09-30T22:34:08+0300] INFO: Dirty-state detected: KijaniKiosk application root already exists.
-[2026-09-30T22:34:08+0300] INFO: Pre-provisioning audit complete.
-[2026-09-30T22:34:08+0300] INFO: ============================================================
-[2026-09-30T22:34:08+0300] INFO: PHASE 2: Package Convergence
-[2026-09-30T22:34:08+0300] INFO: ============================================================
-[2026-09-30T22:34:08+0300] INFO: Refreshing APT package metadata.
-Hit:1 https://download.docker.com/linux/ubuntu noble InRelease
-Hit:2 https://brave-browser-apt-release.s3.brave.com stable InRelease
+[2026-10-02T07:36:56+0300] INFO: Starting kijanikiosk-provision.sh version 1.0.0.
+[2026-10-02T07:36:56+0300] INFO: ============================================================
+[2026-10-02T07:36:56+0300] INFO: PHASE 1: Pre-Provisioning Audit and Prerequisites
+[2026-10-02T07:36:57+0300] INFO: ============================================================
+[2026-10-02T07:36:57+0300] INFO: System information:
+[2026-10-02T07:36:57+0300] INFO:   Hostname: webdev
+[2026-10-02T07:36:57+0300] INFO:   Kernel: 7.0.0-34-generic
+[2026-10-02T07:36:57+0300] INFO:   User: root
+[2026-10-02T07:36:57+0300] INFO:   Script version: 1.0.0
+[2026-10-02T07:36:57+0300] INFO: Auditing known dirty-state conditions.
+[2026-10-02T07:36:57+0300] INFO: Dirty-state detected: service account already exists: kk-api
+[2026-10-02T07:36:57+0300] INFO: Dirty-state detected: configuration directory already exists: /opt/kijanikiosk/config
+[2026-10-02T07:36:57+0300] INFO: Dirty-state detected: shared log directory already exists: /opt/kijanikiosk/shared/logs
+[2026-10-02T07:36:57+0300] INFO: Dirty-state detected: UFW is already active.
+[2026-10-02T07:36:57+0300] INFO: Clean-state condition: curl is not held by APT.
+[2026-10-02T07:36:57+0300] INFO: Dirty-state detected: KijaniKiosk application root already exists.
+[2026-10-02T07:36:57+0300] INFO: Pre-provisioning audit complete.
+[2026-10-02T07:36:57+0300] INFO: ============================================================
+[2026-10-02T07:36:57+0300] INFO: PHASE 2: Package Convergence
+[2026-10-02T07:36:57+0300] INFO: ============================================================
+[2026-10-02T07:36:57+0300] INFO: Refreshing APT package metadata.
+Hit:1 https://brave-browser-apt-release.s3.brave.com stable InRelease
+Hit:2 https://download.docker.com/linux/ubuntu noble InRelease
 Get:3 https://apt.releases.hashicorp.com noble InRelease [12.8 kB]
+Get:4 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Hit:5 http://archive.ubuntu.com/ubuntu noble InRelease
 Err:3 https://apt.releases.hashicorp.com noble InRelease
   The following signatures couldn't be verified because the public key is not available: NO_PUBKEY FC9CA96ACA026560
-Hit:4 http://archive.ubuntu.com/ubuntu noble InRelease
-Hit:5 http://security.ubuntu.com/ubuntu noble-security InRelease
-Hit:6 http://archive.ubuntu.com/ubuntu noble-updates InRelease
-Hit:7 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Get:6 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:7 https://dl.google.com/linux/chrome-stable/deb stable InRelease [2,548 B]
 Hit:8 https://ppa.launchpadcontent.net/ansible/ansible/ubuntu noble InRelease
-Hit:9 https://dl.google.com/linux/chrome-stable/deb stable InRelease
-Fetched 12.8 kB in 1s (9,996 B/s)
+Get:9 https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages [1,411 B]
+Hit:10 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Get:11 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1,364 kB]
+Get:12 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1,699 kB]
+Fetched 3,332 kB in 3s (1,075 kB/s)
 Reading package lists...
 W: An error occurred during the signature verification. The repository is not updated and the previous index files will be used. GPG error: https://apt.releases.hashicorp.com noble InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY FC9CA96ACA026560
 W: Failed to fetch https://apt.releases.hashicorp.com/dists/noble/InRelease  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY FC9CA96ACA026560
 W: Some index files failed to download. They have been ignored, or old ones used instead.
-[2026-09-30T22:34:10+0300] INFO: No package hold detected for: acl
-[2026-09-30T22:34:10+0300] INFO: Package already installed: acl
-[2026-09-30T22:34:10+0300] INFO: No package hold detected for: curl
-[2026-09-30T22:34:10+0300] INFO: Package already installed: curl
-[2026-09-30T22:34:10+0300] INFO: No package hold detected for: jq
-[2026-09-30T22:34:10+0300] INFO: Package already installed: jq
-[2026-09-30T22:34:10+0300] INFO: No package hold detected for: logrotate
-[2026-09-30T22:34:11+0300] INFO: Package already installed: logrotate
-[2026-09-30T22:34:11+0300] INFO: No package hold detected for: nginx
-[2026-09-30T22:34:11+0300] INFO: Package already installed: nginx
-[2026-09-30T22:34:11+0300] INFO: No package hold detected for: ufw
-[2026-09-30T22:34:11+0300] INFO: Package already installed: ufw
-[2026-09-30T22:34:11+0300] PASS: Required package set is installed and package holds have been reconciled.
-[2026-09-30T22:34:11+0300] INFO: ============================================================
-[2026-09-30T22:34:11+0300] INFO: PHASE 3: Service Accounts, Directories, ACLs and Configuration
-[2026-09-30T22:34:11+0300] INFO: ============================================================
-[2026-09-30T22:34:11+0300] INFO: Application group already exists: kijanikiosk
-[2026-09-30T22:34:11+0300] INFO: Existing service account already exists: kk-api; reconciling it.
+[2026-10-02T07:37:04+0300] INFO: No package hold detected for: acl
+[2026-10-02T07:37:04+0300] INFO: Package already installed: acl
+[2026-10-02T07:37:04+0300] INFO: No package hold detected for: curl
+[2026-10-02T07:37:04+0300] INFO: Package already installed: curl
+[2026-10-02T07:37:04+0300] INFO: No package hold detected for: jq
+[2026-10-02T07:37:04+0300] INFO: Package already installed: jq
+[2026-10-02T07:37:04+0300] INFO: No package hold detected for: logrotate
+[2026-10-02T07:37:04+0300] INFO: Package already installed: logrotate
+[2026-10-02T07:37:04+0300] INFO: No package hold detected for: nginx
+[2026-10-02T07:37:05+0300] INFO: Package already installed: nginx
+[2026-10-02T07:37:05+0300] INFO: No package hold detected for: ufw
+[2026-10-02T07:37:05+0300] INFO: Package already installed: ufw
+[2026-10-02T07:37:05+0300] PASS: Required package set is installed and package holds have been reconciled.
+[2026-10-02T07:37:05+0300] INFO: ============================================================
+[2026-10-02T07:37:05+0300] INFO: PHASE 3: Service Accounts, Directories, ACLs and Configuration
+[2026-10-02T07:37:05+0300] INFO: ============================================================
+[2026-10-02T07:37:05+0300] INFO: Application group already exists: kijanikiosk
+[2026-10-02T07:37:05+0300] INFO: Existing service account already exists: kk-api; reconciling it.
 usermod: no changes
-[2026-09-30T22:34:11+0300] INFO: kk-api is already a member of kijanikiosk.
-[2026-09-30T22:34:11+0300] PASS: Reconciled existing service account: kk-api
-[2026-09-30T22:34:11+0300] INFO: Existing service account already exists: kk-payments; reconciling it.
+[2026-10-02T07:37:05+0300] INFO: kk-api is already a member of kijanikiosk.
+[2026-10-02T07:37:05+0300] PASS: Reconciled existing service account: kk-api
+[2026-10-02T07:37:05+0300] INFO: Existing service account already exists: kk-payments; reconciling it.
 usermod: no changes
-[2026-09-30T22:34:11+0300] INFO: kk-payments is already a member of kijanikiosk.
-[2026-09-30T22:34:11+0300] PASS: Reconciled existing service account: kk-payments
-[2026-09-30T22:34:11+0300] INFO: Existing service account already exists: kk-logs; reconciling it.
+[2026-10-02T07:37:05+0300] INFO: kk-payments is already a member of kijanikiosk.
+[2026-10-02T07:37:05+0300] PASS: Reconciled existing service account: kk-payments
+[2026-10-02T07:37:05+0300] INFO: Existing service account already exists: kk-logs; reconciling it.
 usermod: no changes
-[2026-09-30T22:34:11+0300] INFO: kk-logs is already a member of kijanikiosk.
-[2026-09-30T22:34:11+0300] PASS: Reconciled existing service account: kk-logs
-[2026-09-30T22:34:11+0300] INFO: Verified kk-api UID: 995
-[2026-09-30T22:34:11+0300] INFO: Verified kk-payments UID: 994
-[2026-09-30T22:34:11+0300] INFO: Verified kk-logs UID: 993
-[2026-09-30T22:34:11+0300] INFO: Directory already exists: /opt/kijanikiosk; reconciling state.
-[2026-09-30T22:34:11+0300] INFO: Directory already exists: /opt/kijanikiosk/config; reconciling state.
-[2026-09-30T22:34:11+0300] INFO: Directory already exists: /opt/kijanikiosk/shared; reconciling state.
-[2026-09-30T22:34:11+0300] INFO: Directory already exists: /opt/kijanikiosk/shared/logs; reconciling state.
-[2026-09-30T22:34:11+0300] INFO: Directory already exists: /opt/kijanikiosk/health; reconciling state.
-[2026-09-30T22:34:11+0300] INFO: Directory already exists: /opt/kijanikiosk/runtime; reconciling state.
-[2026-09-30T22:34:11+0300] INFO: Reconciling ACLs on shared log directory.
+[2026-10-02T07:37:05+0300] INFO: kk-logs is already a member of kijanikiosk.
+[2026-10-02T07:37:05+0300] PASS: Reconciled existing service account: kk-logs
+[2026-10-02T07:37:05+0300] INFO: Verified kk-api UID: 995
+[2026-10-02T07:37:05+0300] INFO: Verified kk-payments UID: 994
+[2026-10-02T07:37:05+0300] INFO: Verified kk-logs UID: 993
+[2026-10-02T07:37:05+0300] INFO: Directory already exists: /opt/kijanikiosk; reconciling state.
+[2026-10-02T07:37:05+0300] INFO: Directory already exists: /opt/kijanikiosk/config; reconciling state.
+[2026-10-02T07:37:05+0300] INFO: Directory already exists: /opt/kijanikiosk/shared; reconciling state.
+[2026-10-02T07:37:05+0300] INFO: Directory already exists: /opt/kijanikiosk/shared/logs; reconciling state.
+[2026-10-02T07:37:05+0300] INFO: Directory already exists: /opt/kijanikiosk/health; reconciling state.
+[2026-10-02T07:37:05+0300] INFO: Directory already exists: /opt/kijanikiosk/runtime; reconciling state.
+[2026-10-02T07:37:05+0300] INFO: Reconciling ACLs on shared log directory.
 setfacl: u:kk-payments:rx: No such file or directory
 setfacl: u:kk-logs:rwx: No such file or directory
 setfacl: g:kijanikiosk:r-x: No such file or directory
 setfacl: m::rwx: No such file or directory
-[2026-09-30T22:34:11+0300] FAIL: Provisioning aborted unexpectedly at line 633 with exit code 1.
+[2026-10-02T07:37:05+0300] FAIL: Provisioning aborted unexpectedly at line 633 with exit code 1.

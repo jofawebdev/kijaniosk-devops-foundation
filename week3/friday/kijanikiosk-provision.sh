@@ -631,21 +631,11 @@ phase_3_identity_and_filesystem() {
     setfacl -b "${LOG_DIR}"
 
     setfacl -m \
-        "u:${API_USER}:rwx" \
-        "u:${PAYMENTS_USER}:rx" \
-        "u:${LOGS_USER}:rwx" \
-        "g:${APP_GROUP}:r-x" \
-        "m::rwx" \
+        "u:${API_USER}:rwx,u:${PAYMENTS_USER}:rx,u:${LOGS_USER}:rwx,g:${APP_GROUP}:r-x,m::rwx" \
         "${LOG_DIR}"
 
     setfacl -d -m \
-        "u::rwx" \
-        "u:${API_USER}:rwx" \
-        "u:${PAYMENTS_USER}:r-x" \
-        "g::r-x" \
-        "g:${APP_GROUP}:r-x" \
-        "m::rwx" \
-        "o::---" \
+        "u::rwx,u:${API_USER}:rwx,u:${PAYMENTS_USER}:r-x,g::r-x,g:${APP_GROUP}:r-x,m::rwx,o::---" \
         "${LOG_DIR}"
 
     log "Reconciling ACLs on configuration directory."
@@ -653,11 +643,7 @@ phase_3_identity_and_filesystem() {
     setfacl -b "${CONFIG_DIR}"
 
     setfacl -m \
-        "u:${API_USER}:rx" \
-        "u:${PAYMENTS_USER}:rx" \
-        "u:${LOGS_USER}:rx" \
-        "g:${APP_GROUP}:r-x" \
-        "m::r-x" \
+        "u:${API_USER}:rx,u:${PAYMENTS_USER}:rx,u:${LOGS_USER}:rx,g:${APP_GROUP}:r-x,m::r-x" \
         "${CONFIG_DIR}"
 
     log "Reconciling ACLs on health directory."
@@ -665,9 +651,7 @@ phase_3_identity_and_filesystem() {
     setfacl -b "${HEALTH_DIR}"
 
     setfacl -m \
-        "u:${LOGS_USER}:rwx" \
-        "g:${APP_GROUP}:r-x" \
-        "m::rwx" \
+        "u:${LOGS_USER}:rwx,g:${APP_GROUP}:r-x,m::rwx" \
         "${HEALTH_DIR}"
 
     ###########################################################################
@@ -685,11 +669,7 @@ EOF
     chmod 0640 "${API_ENV}"
 
     setfacl -m \
-        "u:${API_USER}:r" \
-        "u:${PAYMENTS_USER}:r" \
-        "u:${LOGS_USER}:r" \
-        "g:${APP_GROUP}:r--" \
-        "m::r--" \
+        "u:${API_USER}:r,u:${PAYMENTS_USER}:r,u:${LOGS_USER}:r,g:${APP_GROUP}:r--,m::r--" \
         "${API_ENV}"
 
     log "Creating/reconciling payments environment file."
@@ -704,11 +684,7 @@ EOF
     chmod 0640 "${PAYMENTS_ENV}"
 
     setfacl -m \
-        "u:${PAYMENTS_USER}:r" \
-        "u:${API_USER}:r" \
-        "u:${LOGS_USER}:r" \
-        "g:${APP_GROUP}:r--" \
-        "m::r--" \
+        "u:${PAYMENTS_USER}:r,u:${API_USER}:r,u:${LOGS_USER}:r,g:${APP_GROUP}:r--,m::r--" \
         "${PAYMENTS_ENV}"
 
     log "Creating/reconciling logs environment file."
@@ -722,11 +698,7 @@ EOF
     chmod 0640 "${LOGS_ENV}"
 
     setfacl -m \
-        "u:${LOGS_USER}:r" \
-        "u:${API_USER}:r" \
-        "u:${PAYMENTS_USER}:r" \
-        "g:${APP_GROUP}:r--" \
-        "m::r--" \
+        "u:${LOGS_USER}:r,u:${API_USER}:r,u:${PAYMENTS_USER}:r,g:${APP_GROUP}:r--,m::r--" \
         "${LOGS_ENV}"
 
     ###########################################################################
@@ -872,6 +844,12 @@ RestrictRealtime=true
 # The service only needs IPv4/IPv6 TCP sockets.
 # AF_UNIX is deliberately excluded because this service does not require it.
 RestrictAddressFamilies=AF_INET AF_INET6
+
+# Additional isolation compatible with the localhost-bound payments service.
+ProtectProc=invisible
+ProcSubset=pid
+RestrictSUIDSGID=true
+LockPersonality=true
 
 # Linux capability and syscall restrictions.
 CapabilityBoundingSet=
@@ -1282,11 +1260,7 @@ phase_6_logrotate() {
         chmod 0660 "${logfile}"
 
         setfacl -m \
-            "u:${API_USER}:rw" \
-            "u:${PAYMENTS_USER}:r" \
-            "u:${LOGS_USER}:rw" \
-            "g:${APP_GROUP}:rw" \
-            "m::rw" \
+            "u:${API_USER}:rw,u:${PAYMENTS_USER}:r,u:${LOGS_USER}:rw,g:${APP_GROUP}:rw,m::rw" \
             "${logfile}"
     done
 
@@ -1318,11 +1292,7 @@ phase_6_logrotate() {
             if [ -e "$logfile" ]; then
                 setfacl \
                     -m \
-                    u:kk-api:rw, \
-                    u:kk-payments:r, \
-                    u:kk-logs:rw, \
-                    g:kijanikiosk:rw, \
-                    m::rw \
+                    'u:kk-api:rw,u:kk-payments:r,u:kk-logs:rw,g:kijanikiosk:rw,m::rw' \
                     "$logfile"
             fi
         done
@@ -1377,11 +1347,7 @@ ROTATE
         chmod 0660 "${logfile}"
 
         setfacl -m \
-            "u:${API_USER}:rw" \
-            "u:${PAYMENTS_USER}:r" \
-            "u:${LOGS_USER}:rw" \
-            "g:${APP_GROUP}:rw" \
-            "m::rw" \
+            "u:${API_USER}:rw,u:${PAYMENTS_USER}:r,u:${LOGS_USER}:rw,g:${APP_GROUP}:rw,m::rw" \
             "${logfile}"
     done
 
@@ -1590,9 +1556,7 @@ phase_8_health_and_verification() {
     chmod 0640 "${health_file}"
 
     setfacl -m \
-        "u:${LOGS_USER}:rw" \
-        "g:${APP_GROUP}:r--" \
-        "m::r--" \
+        "u:${LOGS_USER}:rw,g:${APP_GROUP}:r--,m::r--" \
         "${health_file}"
 
     if [[ -f "${health_file}" ]]; then
