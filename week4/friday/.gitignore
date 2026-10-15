@@ -1,0 +1,22 @@
+# Terraform generated files and local state
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Local secrets and generated inventory
+*.auto.tfvars
+*.secret
+.env
+.env.*
+inventory.ini
+inventory.generated.ini
+
+# Runtime evidence may contain environment-specific details;
+# explicitly add the required assignment logs before submission.
