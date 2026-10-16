@@ -1,0 +1,206 @@
+[2026-09-30T21:34:17+03:00] ===== PHASE 1: PREFLIGHT AND STATE DETECTION =====
+[2026-09-30T21:34:17+03:00] Already exists: kk-api
+[2026-09-30T21:34:17+03:00] Already exists: kk-payments
+[2026-09-30T21:34:17+03:00] Already exists: kk-logs
+[2026-09-30T21:34:17+03:00] Already exists: kijanikiosk
+[2026-09-30T21:34:17+03:00] Existing application directory detected: /opt/kijanikiosk
+[2026-09-30T21:34:17+03:00] Existing active UFW configuration detected; firewall phase will establish baseline.
+[2026-09-30T21:34:17+03:00] Existing systemd unit detected: kk-api.service
+[2026-09-30T21:34:17+03:00] Existing systemd unit detected: kk-payments.service
+[2026-09-30T21:34:17+03:00] Existing systemd unit detected: kk-logs.service
+[2026-09-30T21:34:17+03:00] PASS: Phase 1 completed
+[2026-09-30T21:34:17+03:00] ===== PHASE 2: PACKAGES AND DEPENDENCIES =====
+Hit:1 https://brave-browser-apt-release.s3.brave.com stable InRelease
+Hit:2 https://download.docker.com/linux/ubuntu noble InRelease
+Get:3 https://apt.releases.hashicorp.com noble InRelease [12.8 kB]
+Hit:4 http://security.ubuntu.com/ubuntu noble-security InRelease
+Err:3 https://apt.releases.hashicorp.com noble InRelease
+  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY FC9CA96ACA026560
+Hit:5 http://archive.ubuntu.com/ubuntu noble InRelease
+Hit:6 https://dl.google.com/linux/chrome-stable/deb stable InRelease
+Hit:7 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Hit:8 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Hit:9 https://ppa.launchpadcontent.net/ansible/ansible/ubuntu noble InRelease
+Fetched 12.8 kB in 1s (10.8 kB/s)
+Reading package lists...
+W: An error occurred during the signature verification. The repository is not updated and the previous index files will be used. GPG error: https://apt.releases.hashicorp.com noble InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY FC9CA96ACA026560
+W: Failed to fetch https://apt.releases.hashicorp.com/dists/noble/InRelease  The following signatures couldn't be verified because the public key is not available: NO_PUBKEY FC9CA96ACA026560
+W: Some index files failed to download. They have been ignored, or old ones used instead.
+Reading package lists...
+Building dependency tree...
+Reading state information...
+acl is already the newest version (2.3.2-1build1.1).
+curl is already the newest version (8.5.0-2ubuntu10.15).
+nginx is already the newest version (1.24.0-2ubuntu7.18).
+logrotate is already the newest version (3.21.0-2build1).
+jq is already the newest version (1.7.1-3ubuntu0.24.04.2).
+socat is already the newest version (1.8.0.0-4ubuntu0.1).
+0 upgraded, 0 newly installed, 0 to remove and 41 not upgraded.
+[2026-09-30T21:34:20+03:00] PASS: Required packages are installed.
+Synchronizing state of nginx.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install enable nginx
+[2026-09-30T21:34:21+03:00] PASS: Phase 2 completed
+[2026-09-30T21:34:21+03:00] ===== PHASE 3: USERS, GROUPS, DIRECTORIES AND ACLS =====
+[2026-09-30T21:34:21+03:00] Already exists: kijanikiosk
+[2026-09-30T21:34:21+03:00] Already exists: kk-api; reconciling membership and shell.
+usermod: no changes
+[2026-09-30T21:34:21+03:00] Already exists: kk-payments; reconciling membership and shell.
+usermod: no changes
+[2026-09-30T21:34:22+03:00] Already exists: kk-logs; reconciling membership and shell.
+usermod: no changes
+[2026-09-30T21:34:22+03:00] PASS: Directory permissions and ACLs configured.
+[2026-09-30T21:34:22+03:00] PASS: Environment files created with least-privilege access.
+[2026-09-30T21:34:22+03:00] PASS: Phase 3 completed
+[2026-09-30T21:34:22+03:00] ===== PHASE 4: HARDENED SYSTEMD SERVICES =====
+[2026-09-30T21:34:25+03:00] PASS: All three systemd services started successfully.
+[2026-09-30T21:34:25+03:00] PASS: Phase 4 completed
+[2026-09-30T21:34:25+03:00] ===== PHASE 5: FIREWALL BASELINE =====
+Backing up 'user.rules' to '/etc/ufw/user.rules.20260930_213426'
+Backing up 'before.rules' to '/etc/ufw/before.rules.20260930_213426'
+Backing up 'after.rules' to '/etc/ufw/after.rules.20260930_213426'
+Backing up 'user6.rules' to '/etc/ufw/user6.rules.20260930_213426'
+Backing up 'before6.rules' to '/etc/ufw/before6.rules.20260930_213426'
+Backing up 'after6.rules' to '/etc/ufw/after6.rules.20260930_213426'
+
+Default incoming policy changed to 'deny'
+(be sure to update your rules accordingly)
+Default outgoing policy changed to 'allow'
+(be sure to update your rules accordingly)
+Rules updated
+Rules updated (v6)
+Rules updated
+Rules updated (v6)
+Rules updated
+Rules updated
+Rules updated (v6)
+Rules updated
+Rules updated (v6)
+Firewall is active and enabled on system startup
+[2026-09-30T21:34:28+03:00] PASS: Firewall baseline configured.
+[2026-09-30T21:34:28+03:00] PASS: Phase 5 completed
+[2026-09-30T21:34:28+03:00] ===== PHASE 6: LOGROTATE AND ACCESS MODEL =====
+[2026-09-30T21:34:28+03:00] Testing logrotate configuration.
+[2026-09-30T21:34:28+03:00] PASS: logrotate debug validation passed.
+[2026-09-30T21:34:28+03:00] Forcing an actual log rotation.
+[2026-09-30T21:34:28+03:00] PASS: Logrotate forced rotation completed.
+[2026-09-30T21:34:28+03:00] PASS: PASS: kk-api can write after logrotate
+[2026-09-30T21:34:28+03:00] PASS: Phase 6 completed
+[2026-09-30T21:34:28+03:00] ===== PHASE 7: JOURNAL PERSISTENCE AND LOG ROTATION =====
+[2026-09-30T21:34:28+03:00] PASS: Persistent journal configuration applied.
+[2026-09-30T21:34:28+03:00] PASS: Journal storage cap configured at 500MB.
+[2026-09-30T21:34:28+03:00] PASS: logrotate --debug completed without errors.
+[2026-09-30T21:34:28+03:00] PASS: Phase 7 completed
+[2026-09-30T21:34:28+03:00] ===== PHASE 8: MONITORING HEALTH CHECKS =====
+[2026-09-30T21:34:28+03:00] PASS: PASS: kk-api port 3000 is listening.
+[2026-09-30T21:34:28+03:00] PASS: PASS: kk-payments port 3001 is listening.
+[2026-09-30T21:34:28+03:00] PASS: PASS: kk-logs port 3010 is listening.
+[2026-09-30T21:34:28+03:00] Health result: API="ok", PAYMENTS="ok", LOGS="ok"
+[2026-09-30T21:34:28+03:00] PASS: Health JSON generated successfully.
+[2026-09-30T21:34:28+03:00] PASS: Phase 8 completed
+[2026-09-30T21:34:28+03:00] ===== FINAL VERIFICATION =====
+uid=995(kk-api) gid=983(kk-api) groups=983(kk-api),982(kijanikiosk)
+[2026-09-30T21:34:28+03:00] PASS: kk-api account exists
+uid=994(kk-payments) gid=981(kk-payments) groups=981(kk-payments),982(kijanikiosk)
+[2026-09-30T21:34:28+03:00] PASS: kk-payments account exists
+uid=993(kk-logs) gid=980(kk-logs) groups=980(kk-logs),982(kijanikiosk)
+[2026-09-30T21:34:28+03:00] PASS: kk-logs account exists
+kijanikiosk:x:982:kk-api,kk-payments,kk-logs
+[2026-09-30T21:34:28+03:00] PASS: kijanikiosk group exists
+[2026-09-30T21:34:28+03:00] PASS: application root exists
+[2026-09-30T21:34:28+03:00] PASS: config directory exists
+[2026-09-30T21:34:28+03:00] PASS: shared logs directory exists
+[2026-09-30T21:34:28+03:00] PASS: health directory exists
+KK_SERVICE=api
+KK_PORT=3000
+[2026-09-30T21:34:28+03:00] PASS: API EnvironmentFile readable
+KK_SERVICE=payments
+KK_PORT=3001
+KK_API_URL=http://127.0.0.1:3000
+[2026-09-30T21:34:28+03:00] PASS: payments EnvironmentFile readable
+KK_SERVICE=logs
+KK_LOG_DIRECTORY=/opt/kijanikiosk/shared/logs
+[2026-09-30T21:34:28+03:00] PASS: logs EnvironmentFile readable
+[2026-09-30T21:34:28+03:00] PASS: kk-api service active
+[2026-09-30T21:34:28+03:00] PASS: kk-payments service active
+[2026-09-30T21:34:28+03:00] PASS: kk-logs service active
+[2026-09-30T21:34:28+03:00] systemd security scores: kk-api=level, kk-payments=level, kk-logs=level
+[2026-09-30T21:34:28+03:00] WARN: Could not parse kk-api security score automatically; inspect manually.
+[2026-09-30T21:34:28+03:00] WARN: Could not parse kk-payments security score automatically; inspect manually.
+[2026-09-30T21:34:28+03:00] WARN: Could not parse kk-logs security score automatically; inspect manually.
+warning: logrotate in debug mode does nothing except printing debug messages!  Consider using verbose mode (-v) instead if this is not what you want.
+
+reading config file /etc/logrotate.d/kijanikiosk
+Reading state from file: /var/lib/logrotate/status
+Allocating hash table for state file, size 64 entries
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+Creating new state
+
+Handling 1 logs
+
+rotating pattern: /opt/kijanikiosk/shared/logs/kk-api.log
+/opt/kijanikiosk/shared/logs/kk-payments.log
+/opt/kijanikiosk/shared/logs/kk-logs.log  after 1 days (14 rotations)
+empty log files are not rotated, old logs are removed
+switching euid from 0 to 993 and egid from 0 to 982 (pid 46324)
+considering log /opt/kijanikiosk/shared/logs/kk-api.log
+  Now: 2026-09-30 21:34
+  Last rotated at 2026-09-30 21:00
+  log does not need rotating (log has already been rotated)
+considering log /opt/kijanikiosk/shared/logs/kk-payments.log
+  Now: 2026-09-30 21:34
+  Last rotated at 2026-09-30 21:00
+  log does not need rotating (log has already been rotated)
+considering log /opt/kijanikiosk/shared/logs/kk-logs.log
+  Now: 2026-09-30 21:34
+  Last rotated at 2026-09-30 21:00
+  log does not need rotating (log has already been rotated)
+not running postrotate script, since no logs were rotated
+switching euid from 993 to 0 and egid from 982 to 0 (pid 46324)
+[2026-09-30T21:34:28+03:00] PASS: logrotate configuration passes debug validation
+[2026-09-30T21:34:28+03:00] PASS: persistent journal directory exists
+[2026-09-30T21:34:28+03:00] PASS: health JSON exists
+[2026-09-30T21:34:28+03:00] PASS: health JSON is valid
+[2026-09-30T21:34:28+03:00] PASS: PASS: SSH rule exists
+[2026-09-30T21:34:28+03:00] PASS: PASS: HTTP rule exists
+[2026-09-30T21:34:28+03:00] PASS: PASS: external port 3001 deny exists
+[2026-09-30T21:34:28+03:00] FAIL: FAIL: monitoring subnet access missing
+[2026-09-30T21:34:28+03:00] PASS: PASS: kk-api can write to shared logs
+[2026-09-30T21:34:28+03:00] ===== VERIFICATION SUMMARY =====
+[2026-09-30T21:34:29+03:00] FAIL: 1 verification check(s) failed

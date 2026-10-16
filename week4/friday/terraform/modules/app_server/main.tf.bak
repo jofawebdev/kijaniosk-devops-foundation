@@ -1,0 +1,92 @@
+resource "libvirt_volume" "root" {
+  name     = "${var.name}-root.qcow2"
+  pool     = "default"
+  format   = "qcow2"
+  capacity = 10 * 1024 * 1024 * 1024
+
+  backing_store = {
+    path   = var.base_image_path
+    format = "qcow2"
+  }
+}
+
+resource "libvirt_domain" "server" {
+  name        = "kk-${var.name}"
+  type        = "kvm"
+  memory      = var.memory_mib
+  memory_unit = "MiB"
+  vcpu        = var.vcpu
+  running     = true
+  autostart   = false
+
+  os = {
+    type         = "hvm"
+    type_arch    = "x86_64"
+    type_machine = "q35"
+  }
+
+  devices = {
+    disks = [
+      {
+        device = "disk"
+        driver = {
+          name = "qemu"
+          type = "qcow2"
+        }
+        source = {
+          volume = {
+            pool   = "default"
+            volume = libvirt_volume.root.name
+          }
+        }
+        target = {
+          dev = "vda"
+          bus = "virtio"
+        }
+      },
+      {
+        device = "cdrom"
+        driver = {
+          name = "qemu"
+          type = "raw"
+        }
+        source = {
+          volume = {
+            pool   = "default"
+            volume = libvirt_volume.cloudinit.name
+          }
+        }
+        target = {
+          dev = "sda"
+          bus = "sata"
+        }
+      }
+    ]
+
+    interfaces = [
+      {
+        type = "network"
+        source = {
+          network = "default"
+        }
+        model = {
+          type = "virtio"
+        }
+        wait_for_ip = {
+          timeout = 300
+          source  = "lease"
+        }
+      }
+    ]
+  }
+
+  depends_on = [
+    libvirt_volume.root,
+    libvirt_volume.cloudinit
+  ]
+}
+
+data "libvirt_domain_interface_addresses" "server" {
+  domain = libvirt_domain.server.id
+  source = "lease"
+}
