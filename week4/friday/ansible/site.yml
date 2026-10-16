@@ -1,0 +1,146 @@
+---
+- name: Configure KijaniKiosk staging servers
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install required packages
+      ansible.builtin.apt:
+        name:
+          - python3
+          - ufw
+          - logrotate
+          - systemd
+        state: present
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Ensure shared application group exists
+      ansible.builtin.group:
+        name: "{{ app_group }}"
+        state: present
+
+    - name: Ensure service account exists
+      ansible.builtin.user:
+        name: "{{ service_account }}"
+        group: "{{ app_group }}"
+        system: true
+        create_home: false
+        shell: /usr/sbin/nologin
+        state: present
+
+    - name: Create application directories
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: directory
+        owner: "{{ item.owner }}"
+        group: "{{ item.group }}"
+        mode: "{{ item.mode }}"
+      loop: "{{ app_directories }}"
+
+    - name: Install payments environment file
+      ansible.builtin.copy:
+        dest: "{{ app_root }}/config/payments-api.env"
+        content: "# Managed by Ansible. Add approved non-secret settings here.\n"
+        owner: root
+        group: "{{ app_group }}"
+        mode: "0640"
+      when: inventory_hostname == 'kk-payments'
+
+    - name: Install hardened service unit
+      ansible.builtin.template:
+        src: templates/kijanikiosk.service.j2
+        dest: "/etc/systemd/system/{{ inventory_hostname }}.service"
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart KijaniKiosk service
+
+    - name: Configure persistent system journal
+      ansible.builtin.file:
+        path: /var/log/journal
+        state: directory
+        owner: root
+        group: systemd-journal
+        mode: "2755"
+      notify: Restart systemd-journald
+
+    - name: Ensure journald configuration directory exists
+      ansible.builtin.file:
+        path: /etc/systemd/journald.conf.d
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Install journal limits
+      ansible.builtin.template:
+        src: templates/journald.conf.j2
+        dest: /etc/systemd/journald.conf.d/99-kijanikiosk.conf
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart systemd-journald
+
+    - name: Install logrotate policy
+      ansible.builtin.template:
+        src: templates/kijanikiosk-logrotate.j2
+        dest: /etc/logrotate.d/kijanikiosk
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Set default inbound firewall policy
+      community.general.ufw:
+        direction: incoming
+        policy: deny
+
+    - name: Set default outbound firewall policy
+      community.general.ufw:
+        direction: outgoing
+        policy: allow
+
+    - name: Allow SSH for administration
+      community.general.ufw:
+        rule: allow
+        name: OpenSSH
+
+    - name: Allow API and logs from approved application subnet
+      community.general.ufw:
+        rule: allow
+        port: "{{ service_port | string }}"
+        proto: tcp
+        from_ip: 10.0.1.0/24
+      when: inventory_hostname in ['kk-api', 'kk-logs']
+
+    - name: Enable firewall
+      community.general.ufw:
+        state: enabled
+
+    - name: Enable and start service
+      ansible.builtin.systemd:
+        name: "{{ inventory_hostname }}.service"
+        enabled: true
+        state: started
+        daemon_reload: true
+
+    - name: Validate logrotate configuration
+      ansible.builtin.command: logrotate --debug /etc/logrotate.conf
+      changed_when: false
+
+    - name: Verify service is active
+      ansible.builtin.command: systemctl is-active {{ inventory_hostname }}.service
+      changed_when: false
+
+  handlers:
+    - name: Restart KijaniKiosk service
+      ansible.builtin.systemd:
+        name: "{{ inventory_hostname }}.service"
+        state: restarted
+        daemon_reload: true
+
+    - name: Restart systemd-journald
+      ansible.builtin.systemd:
+        name: systemd-journald
+        state: restarted

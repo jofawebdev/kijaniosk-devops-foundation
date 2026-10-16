@@ -1,0 +1,4 @@
+---
+service_account: kk-logs
+service_port: 3010
+service_bind_address: 0.0.0.0
