@@ -1,0 +1,19 @@
+{
+  "name": "kijanikiosk-payments",
+  "version": "1.0.0",
+  "description": "Payment validation module for the KijaniKiosk CI pipeline exercise",
+  "private": false,
+  "main": "dist/payment.js",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "lint": "node scripts/lint.js",
+    "test": "node --test",
+    "build": "node scripts/build.js"
+  },
+  "engines": {
+    "node": ">=18 <19"
+  },
+  "license": "UNLICENSED"
+}
