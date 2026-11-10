@@ -20,7 +20,7 @@ const server = http.createServer((request, response) => {
   response.end(JSON.stringify({ error: 'Not found' }));
 });
 
-server.listen(PORT, '0.0.0.0', () => {
+server.listen(PORT, process.env.HOST || '0.0.0.0', () => {
   console.log(`kk-payments listening on port ${PORT}`);
 });
 
