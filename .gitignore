@@ -1,0 +1,17 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+*.tmp
+.DS_Store
+terraform-staging/.terraform/
+terraform-staging/*.tfstate
+terraform-staging/*.tfstate.*
+terraform-staging/*.tfvars
+!terraform-staging/*.tfvars.example
+
+dist/
+node_modules/

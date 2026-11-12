@@ -1,0 +1,41 @@
+[Unit]
+Description=KijaniKiosk {{ inventory_hostname }} service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User={{ service_account }}
+Group={{ app_group }}
+WorkingDirectory={{ app_root }}
+ExecStart=/usr/bin/python3 -m http.server {{ service_port }} --bind {{ service_bind_address }}
+Restart=on-failure
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=5
+UMask=0027
+
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectHome=true
+ProtectSystem=strict
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+SystemCallFilter=@system-service
+ReadWritePaths={{ app_root }}/shared/logs {{ app_root }}/health
+{% if inventory_hostname == 'kk-payments' %}
+EnvironmentFile=-{{ app_root }}/config/payments-api.env
+{% endif %}
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

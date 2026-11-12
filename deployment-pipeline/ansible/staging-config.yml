@@ -1,0 +1,21 @@
+---
+- name: Configure KijaniKiosk staging environment
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Create staging payments configuration
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: ConfigMap
+          metadata:
+            name: kk-payments-config
+            namespace: kijani-staging
+            labels:
+              app: kk-payments
+              environment: staging
+          data:
+            DB_HOST: "kk-payments-db.staging.svc.cluster.local"
