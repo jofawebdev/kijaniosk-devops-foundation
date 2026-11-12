@@ -1,0 +1,21 @@
+WEEK 8 GHCR REGISTRY VERIFICATION
+
+Version computation:
+VERSION=$(node -p "require('./package.json').version")
+GIT_SHA=$(git rev-parse --short=7 HEAD)
+IMAGE_TAG="${VERSION}-${GIT_SHA}"
+
+Image:
+ghcr.io/jofawebdev/kk-payments:1.0.0-beb6fb4
+
+Registry: GitHub Container Registry (GHCR)
+Push: SUCCESS
+Digest: sha256:03cf725efe0ae89231e3d55a2318c90dc441006cccaf1fee77f67553ac7de00f
+
+Fresh pull verification:
+Local GHCR image was removed before pulling.
+docker pull succeeded.
+Image size: 81923601 bytes.
+Status: Downloaded newer image from GHCR.
+
+No registry credentials or tokens are stored in this file.

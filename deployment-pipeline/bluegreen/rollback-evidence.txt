@@ -1,0 +1,21 @@
+KijaniKiosk Blue/Green Deployment Evidence
+==========================================
+
+Verified:
+- Blue application health: v1.3.0
+- Green application health: v1.4.0
+- Nginx proxy switched to green and returned v1.4.0.
+- Nginx proxy restored to blue and returned v1.3.0.
+- Both application environments were configured as separate systemd services.
+- Automated post-deployment monitor implemented.
+- Monitor syntax validated.
+
+Automated rollback drill:
+NOT VERIFIED.
+
+The monitor completed a healthy monitoring window while blue was
+active. A subsequent green service stop occurred outside that window.
+Therefore, automatic failure-triggered rollback has not been proven
+by a successful end-to-end fault injection test.
+
+No automatic rollback recovery time is claimed.

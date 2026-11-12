@@ -1,0 +1,30 @@
+---
+app_root: /opt/kijanikiosk
+app_group: kijanikiosk
+app_user: ubuntu
+
+app_directories:
+  - path: "{{ app_root }}"
+    owner: root
+    group: "{{ app_group }}"
+    mode: "0750"
+  - path: "{{ app_root }}/config"
+    owner: root
+    group: "{{ app_group }}"
+    mode: "0750"
+  - path: "{{ app_root }}/shared"
+    owner: root
+    group: "{{ app_group }}"
+    mode: "0750"
+  - path: "{{ app_root }}/shared/logs"
+    owner: root
+    group: "{{ app_group }}"
+    mode: "2770"
+  - path: "{{ app_root }}/health"
+    owner: root
+    group: "{{ app_group }}"
+    mode: "0750"
+
+journal_system_max_use: 500M
+journal_runtime_max_use: 100M
+journal_max_file_size: 50M
