@@ -1,0 +1,10 @@
+{{ app_root }}/shared/logs/*.log {
+    daily
+    rotate 14
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 0640 root {{ app_group }}
+    su root {{ app_group }}
+}

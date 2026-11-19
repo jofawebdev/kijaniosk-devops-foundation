@@ -1,0 +1,43 @@
+resource "libvirt_cloudinit_disk" "init" {
+  name = "${var.name}-cloudinit.iso"
+
+  meta_data = yamlencode({
+    instance-id    = "kijanikiosk-${var.name}"
+    local-hostname = "kk-${var.name}"
+  })
+
+  user_data = yamlencode({
+    users = [
+      "default",
+      {
+        name                = "ubuntu"
+        groups              = ["adm", "sudo"]
+        shell               = "/bin/bash"
+        sudo                = ["ALL=(ALL) NOPASSWD:ALL"]
+        lock_passwd         = true
+        ssh_authorized_keys = [var.ssh_public_key]
+      }
+    ]
+
+    ssh_pwauth = false
+
+    packages = [
+      "openssh-server",
+      "python3",
+      "qemu-guest-agent"
+    ]
+
+    package_update = true
+  })
+}
+
+resource "libvirt_volume" "cloudinit" {
+  name = "${var.name}-cloudinit.iso"
+  pool = "default"
+
+  create = {
+    content = {
+      url = libvirt_cloudinit_disk.init.path
+    }
+  }
+}
