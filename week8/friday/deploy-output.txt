@@ -1,0 +1,7 @@
+===== DEPLOYMENT =====
+NAME          READY   UP-TO-DATE   AVAILABLE   AGE
+kk-payments   2/2     2            2           40s
+===== PODS =====
+NAME                           READY   STATUS    RESTARTS   AGE   IP           NODE       NOMINATED NODE   READINESS GATES
+kk-payments-7c5d9fd47b-hj6z8   1/1     Running   0          39s   10.244.0.3   minikube   <none>           <none>
+kk-payments-7c5d9fd47b-z8wxs   1/1     Running   0          39s   10.244.0.4   minikube   <none>           <none>

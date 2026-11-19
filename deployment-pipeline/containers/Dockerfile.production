@@ -1,0 +1,35 @@
+FROM node:18.19.1-alpine3.18 AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+COPY scripts/build.js ./scripts/build.js
+COPY src ./src
+RUN npm run build
+
+FROM alpine:3.18 AS production
+
+ARG APP_VERSION=development
+
+RUN apk add --no-cache nodejs \
+    && addgroup -S -g 10001 kijani \
+    && adduser -S -D -H -u 10001 -G kijani kijani
+
+ENV NODE_ENV=production
+ENV PORT=3001
+ENV APP_VERSION=${APP_VERSION}
+
+WORKDIR /app
+
+COPY --from=builder --chown=kijani:kijani /app/dist ./dist
+
+USER kijani
+
+EXPOSE 3001
+
+HEALTHCHECK --interval=10s --timeout=3s --start-period=30s --retries=3 \
+  CMD wget -q -O /dev/null http://127.0.0.1:3001/health || exit 1
+
+CMD ["node", "dist/server.js"]

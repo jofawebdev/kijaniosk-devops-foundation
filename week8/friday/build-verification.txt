@@ -1,0 +1,43 @@
+KijaniKiosk Week 8 Production Build Verification
+Date: 2026-10-31T20:55:24+03:00
+Git commit: 13be355
+Image: kk-payments:1.0.0-13be355
+
+=== Image size ===
+Bytes: 187090813
+IMAGE                       ID             DISK USAGE   CONTENT SIZE   EXTRA
+kk-payments:1.0.0-13be355   a361bdcd3953        187MB         45.9MB        
+
+=== Runtime user ===
+kijani
+
+=== TypeScript compiler ===
+PASS: tsc not installed
+
+=== Image layers ===
+IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+a361bdcd3953   4 minutes ago   CMD ["node" "dist/server.js"]                   0B        buildkit.dockerfile.v0
+<missing>      4 minutes ago   HEALTHCHECK {Test:[CMD-SHELL wget -q -O /dev…   0B        buildkit.dockerfile.v0
+<missing>      4 minutes ago   EXPOSE [3001/tcp]                               0B        buildkit.dockerfile.v0
+<missing>      4 minutes ago   USER kijani                                     0B        buildkit.dockerfile.v0
+<missing>      4 minutes ago   COPY --chown=kijani:kijani /app/dist ./dist …   20.5kB    buildkit.dockerfile.v0
+<missing>      4 minutes ago   WORKDIR /app                                    8.19kB    buildkit.dockerfile.v0
+<missing>      4 minutes ago   RUN |1 APP_VERSION=1.0.0-13be355 /bin/sh -c …   32.8kB    buildkit.dockerfile.v0
+<missing>      4 minutes ago   ENV APP_VERSION=1.0.0-13be355                   0B        buildkit.dockerfile.v0
+<missing>      4 minutes ago   ENV PORT=3001                                   0B        buildkit.dockerfile.v0
+<missing>      4 minutes ago   ENV NODE_ENV=production                         0B        buildkit.dockerfile.v0
+<missing>      4 minutes ago   ARG APP_VERSION=1.0.0-13be355                   0B        buildkit.dockerfile.v0
+<missing>      2 years ago     /bin/sh -c #(nop)  CMD ["node"]                 0B        
+<missing>      2 years ago     /bin/sh -c #(nop)  ENTRYPOINT ["docker-entry…   0B        
+<missing>      2 years ago     /bin/sh -c #(nop) COPY file:4d192565a7220e13…   20.5kB    
+<missing>      2 years ago     /bin/sh -c apk add --no-cache --virtual .bui…   7.93MB    
+<missing>      2 years ago     /bin/sh -c #(nop)  ENV YARN_VERSION=1.22.19     0B        
+<missing>      2 years ago     /bin/sh -c addgroup -g 1000 node     && addu…   125MB     
+<missing>      2 years ago     /bin/sh -c #(nop)  ENV NODE_VERSION=18.19.1     0B        
+<missing>      2 years ago     /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B        
+<missing>      2 years ago     /bin/sh -c #(nop) ADD file:8729f9c0258836b64…   8.02MB    
+
+=== Application health ===
+025e974f068581dc89f861adf164ecc613f6146f274e56c9a64705e252945d07
+Health: healthy
+{"status":"ok","service":"kk-payments","version":"1.0.0-13be355"}kk-payments-evidence

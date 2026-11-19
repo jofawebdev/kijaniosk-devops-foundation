@@ -1,0 +1,12 @@
+.git
+.gitignore
+node_modules
+dist
+week3
+week4
+week5
+week8
+.env
+.env.*
+*.log
+coverage
