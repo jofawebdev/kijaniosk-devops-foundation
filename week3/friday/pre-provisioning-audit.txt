@@ -1,0 +1,26 @@
+===== KijaniKiosk Pre-Provisioning Audit =====
+Timestamp: 2026-09-30T20:42:46+03:00
+
+===== USERS =====
+
+===== GROUP =====
+
+===== APPLICATION TREE =====
+
+===== LOG ACL =====
+
+===== CONFIG ACL =====
+
+===== FIREWALL =====
+Status: inactive
+
+===== PACKAGE HOLDS =====
+
+===== KIJANIKIOSK UNITS =====
+
+===== API SECURITY SCORE =====
+
+===== LOG SIZE =====
+
+===== JOURNAL SIZE =====
+Archived and active journals take up 550.2M in the file system.
