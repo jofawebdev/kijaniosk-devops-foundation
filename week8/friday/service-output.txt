@@ -1,0 +1,15 @@
+===== SERVICE =====
+NAME                  TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kk-payments-service   NodePort   10.110.161.27   <none>        3001:30001/TCP   51s
+===== ENDPOINTS =====
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME                  ENDPOINTS                         AGE
+kk-payments-service   10.244.0.3:3001,10.244.0.4:3001   51s
+===== NODEPORT HEALTH CHECK =====
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    65    0    65    0     0   4233      0 --:--:-- --:--:-- --:--:--  4333
+{"status":"ok","service":"kk-payments","version":"1.0.0-beb6fb4"}
+===== INTERNAL SERVICE DNS CHECK =====
+HTTP status: 200
+{"status":"ok","service":"kk-payments","version":"1.0.0-beb6fb4"}

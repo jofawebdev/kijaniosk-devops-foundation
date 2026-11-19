@@ -1,0 +1,10 @@
+WEEK 8 FRESH SELF-HEALING TEST
+Original Pod: kk-payments-7c5d9fd47b-hj6z8
+T0: 2026-11-01T08:13:17+03:00
+pod "kk-payments-7c5d9fd47b-hj6z8" deleted from default namespace
+T1: 2026-11-01T08:13:22+03:00
+Recovery time: 5 seconds
+Pods after recovery:
+NAME                           READY   STATUS    RESTARTS   AGE    IP           NODE       NOMINATED NODE   READINESS GATES
+kk-payments-7c5d9fd47b-dd8q8   1/1     Running   0          5s     10.244.0.5   minikube   <none>           <none>
+kk-payments-7c5d9fd47b-z8wxs   1/1     Running   0          109s   10.244.0.4   minikube   <none>           <none>
